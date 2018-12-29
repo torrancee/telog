@@ -11,6 +11,7 @@ Window {
     width: 1280
     height: 960
     color: "#ffffff"
+    property alias swipeView: swipeView
     title: qsTr("Hello World")
 
     Rectangle {
@@ -50,6 +51,11 @@ Window {
                         text: "Home"
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 90
+
+                        onClicked: {
+                            console.log("Browse clicked")
+                            swipeView.setCurrentIndex(0)
+                        }
                     }
 
                     RoundButton {
@@ -57,6 +63,11 @@ Window {
                         text: "Browse"
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 90
+
+                        onClicked: {
+                            console.log("Browse clicked")
+                            swipeView.setCurrentIndex(1)
+                        }
                     }
 
                     RoundButton {
@@ -67,6 +78,11 @@ Window {
                         focusPolicy: Qt.TabFocus
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 90
+
+                        onClicked: {
+                            console.log("Browse clicked")
+                            swipeView.setCurrentIndex(2)
+                        }
                     }
                 }
             }
