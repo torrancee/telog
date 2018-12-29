@@ -11,8 +11,9 @@ Window {
     width: 1280
     height: 960
     color: "#ffffff"
+    property alias textArea: textArea
     property alias swipeView: swipeView
-    title: qsTr("Hello World")
+    title: qsTr("T&E log viewer")
 
     Rectangle {
         id: background
@@ -96,57 +97,92 @@ Window {
             y: background.y
             width: background.width - 150
             height: background.height
+            currentIndex: 1
             leftPadding: 10
             padding: 10
             font.family: "Verdana"
 
             Item {
-                Label {
-                    id: homelabel
+
+                ColumnLayout {
                     x: 10
-                    width: 150
-                    height: 70
-                    color: "#e3e6ea"
-                    text: qsTr("Home")
-                    styleColor: "#e9dfdf"
-                    verticalAlignment: Text.AlignVCenter
-                    font.pointSize: 24
-                    horizontalAlignment: Text.AlignLeft
+                    y: 0
+
+                    Label {
+                        id: homelabel
+                        color: "#e3e6ea"
+                        text: qsTr("Home")
+                        font.bold: true
+                        Layout.preferredHeight: 70
+                        Layout.preferredWidth: 150
+                        styleColor: "#e9dfdf"
+                        verticalAlignment: Text.AlignVCenter
+                        font.pointSize: 24
+                        horizontalAlignment: Text.AlignLeft
+                    }
+
+                    RowLayout {
+                        Layout.preferredHeight: 49
+                        Layout.preferredWidth: 643
+                        transformOrigin: Item.Center
+                        spacing: 10
+
+                        TextField {
+                            id: loadFileField
+                            width: 400
+                            height: 45
+                            text: qsTr("")
+                            font.wordSpacing: 0
+                            font.pointSize: 13
+                            horizontalAlignment: Text.AlignLeft
+                            Layout.fillHeight: false
+                            Layout.fillWidth: true
+                            font.kerning: false
+                            font.preferShaping: false
+                            padding: 0
+                            bottomPadding: 0
+                            rightPadding: 0
+                            leftPadding: 10
+                            topPadding: 0
+                            Layout.preferredHeight: 49
+                            Layout.preferredWidth: 200
+                            placeholderText: "File Path..."
+                        }
+
+                        Button {
+                            id: button
+                            text: qsTr("Load")
+                        }
+                    }
                 }
 
                 RowLayout {
-                    x: 10
-                    y: 76
-                    width: 643
-                    height: 49
-                    transformOrigin: Item.Center
-                    spacing: 10
+                    id: rowLayout
+                    x: 8
+                    y: 130
+                    width: 300
+                    height: 100
 
-                    TextField {
-                        id: loadFileField
-                        width: 400
-                        height: 45
-                        text: qsTr("")
-                        font.wordSpacing: 0
-                        font.pointSize: 13
+                    Label {
+                        id: fileLoadedLabel
+                        width: 200
+                        color: "#e3e6ea"
+                        text: qsTr("File Loaded")
+                        verticalAlignment: Text.AlignVCenter
+                        Layout.preferredWidth: 150
+                        font.pointSize: 24
+                        styleColor: "#e9dfdf"
                         horizontalAlignment: Text.AlignLeft
-                        Layout.fillHeight: false
-                        Layout.fillWidth: true
-                        font.kerning: false
-                        font.preferShaping: false
-                        padding: 0
-                        bottomPadding: 0
-                        rightPadding: 0
-                        leftPadding: 10
-                        topPadding: 0
-                        Layout.preferredHeight: 49
-                        Layout.preferredWidth: 200
-                        placeholderText: "File Path..."
+                        Layout.preferredHeight: 70
                     }
 
-                    Button {
-                        id: button
-                        text: qsTr("Load")
+                    CheckBox {
+                        id: checkBox
+                        x: 250
+                        width: 74
+                        text: qsTr("Ok!")
+                        font.family: "Verdana"
+                        checked: false
                     }
                 }
             }
@@ -158,11 +194,29 @@ Window {
                     height: 70
                     color: "#e3e6ea"
                     text: qsTr("Browse")
+                    font.bold: true
                     wrapMode: Text.WordWrap
                     verticalAlignment: Text.AlignVCenter
                     font.pointSize: 24
                     styleColor: "#e9dfdf"
                     horizontalAlignment: Text.AlignHCenter
+
+                    ScrollView {
+                        id: scrollView
+                        anchors.rightMargin: -353
+                        anchors.bottomMargin: -156
+                        anchors.leftMargin: 18
+                        anchors.topMargin: 76
+                        anchors.fill: parent
+
+                        TextArea {
+                            id: textArea
+                            text: qsTr("Text Area")
+                            font.pointSize: 8
+                            color: "white"
+                            anchors.fill: parent
+                        }
+                    }
                 }
             }
 
@@ -173,6 +227,7 @@ Window {
                     height: 70
                     color: "#e3e6ea"
                     text: qsTr("Regex")
+                    font.bold: true
                     verticalAlignment: Text.AlignVCenter
                     font.pointSize: 24
                     styleColor: "#e9dfdf"
@@ -180,19 +235,6 @@ Window {
                 }
             }
 
-            Label {
-                id: loadfile1
-                x: -9
-                y: 4
-                color: "#e3e6ea"
-                text: qsTr("Load file")
-                verticalAlignment: Text.AlignVCenter
-                Layout.preferredWidth: 150
-                font.pointSize: 18
-                styleColor: "#e9dfdf"
-                horizontalAlignment: Text.AlignHCenter
-                Layout.preferredHeight: 70
-            }
         }
 
     }
