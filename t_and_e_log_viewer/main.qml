@@ -4,6 +4,7 @@ import QtQuick.Controls 2.3
 import QtQuick.Dialogs.qml 1.0
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.0
+import backend.uiproxy 1.0
 
 Window {
     id: window
@@ -14,6 +15,10 @@ Window {
     property alias textArea: textArea
     property alias swipeView: swipeView
     title: qsTr("T&E log viewer")
+
+    UiProxy {
+        id: uiproxy
+    }
 
     Rectangle {
         id: background
@@ -54,7 +59,7 @@ Window {
                         Layout.preferredWidth: 90
 
                         onClicked: {
-                            console.log("Browse clicked")
+                            console.log("Home clicked")
                             swipeView.setCurrentIndex(0)
                         }
                     }
@@ -97,7 +102,7 @@ Window {
             y: background.y
             width: background.width - 150
             height: background.height
-            currentIndex: 1
+            currentIndex: 0
             leftPadding: 10
             padding: 10
             font.family: "Verdana"
@@ -107,6 +112,7 @@ Window {
                 ColumnLayout {
                     x: 10
                     y: 0
+
 
                     Label {
                         id: homelabel
@@ -151,38 +157,35 @@ Window {
 
                         Button {
                             id: button
+                            y: 2
+                            height: 45
                             text: qsTr("Load")
+
+                            onClicked: {
+                                uiproxy.reqestLoadFile(loadFileField.text)
+                            }
+                        }
+
+                        CheckBox {
+                            id: checkBox
+                            width: 74
+                            text: qsTr("Ok!")
+                            font.family: "Verdana"
+                            checked: false
                         }
                     }
-                }
-
-                RowLayout {
-                    id: rowLayout
-                    x: 8
-                    y: 130
-                    width: 300
-                    height: 100
 
                     Label {
-                        id: fileLoadedLabel
-                        width: 200
+                        id: homelabel1
                         color: "#e3e6ea"
-                        text: qsTr("File Loaded")
+                        text: qsTr("Available trace objects:")
                         verticalAlignment: Text.AlignVCenter
                         Layout.preferredWidth: 150
                         font.pointSize: 24
+                        font.bold: true
                         styleColor: "#e9dfdf"
                         horizontalAlignment: Text.AlignLeft
                         Layout.preferredHeight: 70
-                    }
-
-                    CheckBox {
-                        id: checkBox
-                        x: 250
-                        width: 74
-                        text: qsTr("Ok!")
-                        font.family: "Verdana"
-                        checked: false
                     }
                 }
             }
@@ -234,6 +237,7 @@ Window {
                     horizontalAlignment: Text.AlignHCenter
                 }
             }
+
 
         }
 
