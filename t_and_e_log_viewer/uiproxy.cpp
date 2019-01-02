@@ -1,9 +1,8 @@
 #include "uiproxy.h"
 #include <QDebug>
 
-UiProxy::UiProxy()
+UiProxy::UiProxy(QQmlApplicationEngine &eng) : engRef(eng)
 {
-
 }
 
 void UiProxy::reqestLoadFile(const QString &filePath)
@@ -11,4 +10,8 @@ void UiProxy::reqestLoadFile(const QString &filePath)
     loader.loadFile(filePath);
 }
 
+void UiProxy::getBrowseText()
+{
+    loader.setUiText();
+}
 

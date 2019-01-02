@@ -4,7 +4,6 @@ import QtQuick.Controls 2.3
 import QtQuick.Dialogs.qml 1.0
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.0
-import backend.uiproxy 1.0
 
 Window {
     id: window
@@ -13,12 +12,7 @@ Window {
     height: 960
     color: "#ffffff"
     property alias textArea: textArea
-    property alias swipeView: swipeView
     title: qsTr("T&E log viewer")
-
-    UiProxy {
-        id: uiproxy
-    }
 
     Rectangle {
         id: background
@@ -102,7 +96,7 @@ Window {
             y: background.y
             width: background.width - 150
             height: background.height
-            currentIndex: 0
+            currentIndex: 1
             leftPadding: 10
             padding: 10
             font.family: "Verdana"
@@ -135,6 +129,7 @@ Window {
 
                         TextField {
                             id: loadFileField
+                            objectName: "wiktor"
                             width: 400
                             height: 45
                             text: qsTr("")
@@ -153,25 +148,16 @@ Window {
                             Layout.preferredHeight: 49
                             Layout.preferredWidth: 200
                             placeholderText: "File Path..."
-                        }
 
-                        Button {
-                            id: button
-                            y: 2
-                            height: 45
-                            text: qsTr("Load")
-
-                            onClicked: {
+                            onAccepted: {
                                 uiproxy.reqestLoadFile(loadFileField.text)
+                                uiproxy.getBrowseText()
                             }
-                        }
 
-                        CheckBox {
-                            id: checkBox
-                            width: 74
-                            text: qsTr("Ok!")
-                            font.family: "Verdana"
-                            checked: false
+                            function setText(msg) {
+                                console.log(msg)
+                                textArea.append(msg)
+                            }
                         }
                     }
 
@@ -197,27 +183,44 @@ Window {
                     height: 70
                     color: "#e3e6ea"
                     text: qsTr("Browse")
+                    leftPadding: 0
                     font.bold: true
                     wrapMode: Text.WordWrap
                     verticalAlignment: Text.AlignVCenter
                     font.pointSize: 24
                     styleColor: "#e9dfdf"
                     horizontalAlignment: Text.AlignHCenter
+                }
 
-                    ScrollView {
-                        id: scrollView
-                        anchors.rightMargin: -353
-                        anchors.bottomMargin: -156
-                        anchors.leftMargin: 18
-                        anchors.topMargin: 76
-                        anchors.fill: parent
+                ScrollView {
+                    id: scrollView
+                    x: 18
+                    y: 76
+                    width: swipeView.width
+                    anchors.rightMargin: 10
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 10
+                    anchors.topMargin: 76
+                    anchors.fill: parent
 
-                        TextArea {
-                            id: textArea
-                            text: qsTr("Text Area")
-                            font.pointSize: 8
-                            color: "white"
-                            anchors.fill: parent
+                    TextArea {
+                        id: textArea
+                        objectName: "textArea"
+                        width: scrollView.width
+                        height: 26
+                        padding: 5
+                        leftPadding: 5
+                        rightPadding: 5
+                        bottomPadding: 5
+                        topPadding: 5
+                        font.pointSize: 8
+                        color: "white"
+                        verticalAlignment: Text.AlignTop
+
+                        function updateTextArea(msg){
+                            console.log("called from c++")
+                            console.log(msg)
+                            append("aaaaaaaa")
                         }
                     }
                 }
@@ -258,6 +261,6 @@ Window {
 }
 
 /*##^## Designer {
-    D{i:24;anchors_height:200;anchors_width:200;anchors_x:285;anchors_y:78}D{i:34;anchors_height:142;anchors_width:150;anchors_x:0;anchors_y:818}
+    D{i:21;anchors_height:26;anchors_width:677.890625}
 }
  ##^##*/

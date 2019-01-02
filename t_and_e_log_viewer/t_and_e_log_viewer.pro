@@ -17,8 +17,6 @@ SOURCES += \
     uiproxy.cpp \
     fileloader.cpp
 
-RESOURCES += qml.qrc
-
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
@@ -33,3 +31,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     uiproxy.h \
     fileloader.h
+
+RESOURCES += qml.qrc

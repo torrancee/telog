@@ -11,6 +11,7 @@ class FileLoader : public QObject
 public:
     FileLoader();
     void loadFile(const QString &filePath);
+    void setUiText();
 
 private:
     QVector<QString> fileContent;
